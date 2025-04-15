@@ -1,0 +1,243 @@
+{% extends 'basebackoffice.html.twig' %}
+
+{% block title %}Driver Management{% endblock %}
+
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Driver Management</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Drivers</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <!-- Driver Statistics Cards -->
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>{{ drivers|length }}</h3>
+                        <p>Total Drivers</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>{{ drivers|filter(d => d.isActive ?? true)|length }}</h3>
+                        <p>Active Drivers</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>{{ drivers|filter(d => not (d.isActive ?? true))|length }}</h3>
+                        <p>Inactive Drivers</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-pause-circle"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>0</h3>
+                        <p>Warnings</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Driver List Card -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">All Drivers</h3>
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 250px;">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search drivers...">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="ml-2 d-inline-block">
+                                <a href="{{ path('app_driver_admin_new') }}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-plus"></i> Add Driver
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th style="width: 60px">ID</th>
+                                    <th>Driver Info</th>
+                                    <th>Vehicle Details</th>
+                                    <th>License Plate</th>
+                                    <th>Max Luggage</th>
+                                    <th>Status</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for driver in drivers %}
+                                <tr>
+                                    <td>{{ driver.id }}</td>
+                                    <td>
+                                        <div class="user-block">
+                                            <img class="img-circle" src="{{ asset('backoffice/dist/img/avatar5.png') }}" alt="Driver">
+                                            <span class="username">
+                                                <a href="#">{{ driver.user.fullName ?? 'Driver #' ~ driver.id }}</a>
+                                            </span>
+                                            <span class="description">
+                                                <i class="fas fa-phone text-primary"></i> {{ driver.user.phoneNumber ?? 'N/A' }}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-secondary">{{ driver.carModel }}</span>
+                                        <span class="badge" style="background-color: {{ driver.carColor|lower }}; color: {{ driver.carColor|lower in ['white', 'yellow', 'beige'] ? '#000' : '#fff' }}">
+                                            {{ driver.carColor }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-dark">{{ driver.licensePlate }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="progress progress-sm">
+                                            {% set maxLuggagePercentage = (driver.maxLuggage / 5) * 100 %}
+                                            <div class="progress-bar bg-info" style="width: {{ maxLuggagePercentage }}%"></div>
+                                        </div>
+                                        <small>{{ driver.maxLuggage }} pieces</small>
+                                    </td>
+                                    <td>
+                                        {% if driver.isActive is defined %}
+                                            {% if driver.isActive %}
+                                                <span class="badge bg-success">Active</span>
+                                            {% else %}
+                                                <span class="badge bg-danger">Inactive</span>
+                                            {% endif %}
+                                        {% else %}
+                                            <span class="badge bg-success">Active</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <a href="{{ path('app_driver_admin_show', {'id': driver.id}) }}" class="btn btn-info btn-sm" title="View details">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ path('app_driver_admin_edit', {'id': driver.id}) }}" class="btn btn-warning btn-sm" title="Edit driver">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-danger btn-sm" title="Deactivate" 
+                                                    {% if (driver.isActive is defined and not driver.isActive) %}disabled{% endif %}>
+                                                <i class="fas fa-ban"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="7" class="text-center py-5">
+                                        <div class="empty-state">
+                                            <i class="fas fa-user-slash fa-3x text-muted"></i>
+                                            <p class="mt-3">No drivers have been added to the system yet.</p>
+                                            <a href="{{ path('app_driver_admin_new') }}" class="btn btn-primary">
+                                                <i class="fas fa-plus"></i> Add First Driver
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="card-footer clearfix">
+                        <ul class="pagination pagination-sm m-0 float-right">
+                            <li class="page-item"><a class="page-link" href="#">«</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">»</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recently Added Drivers -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Recently Added Drivers</h3>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="users-list clearfix">
+                            {% for i in 1..8 %}
+                                {% if drivers[i-1] is defined %}
+                                <li>
+                                    <img src="{{ asset('backoffice/dist/img/avatar5.png') }}" alt="Driver">
+                                    <a class="users-list-name" href="{{ path('app_driver_admin_show', {'id': drivers[i-1].id}) }}">
+                                        {{ drivers[i-1].user.fullName ?? 'Driver #' ~ drivers[i-1].id }}
+                                    </a>
+                                    <span class="users-list-date">{{ drivers[i-1].createdAt is defined ? drivers[i-1].createdAt|date('d M') : 'Today' }}</span>
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+  $(function () {
+    // Initialize tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+    
+    // Filter functionality for the driver search
+    $('input[name="table_search"]').on('keyup', function() {
+      let value = $(this).val().toLowerCase();
+      $('tbody tr').filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
+{% endblock %}

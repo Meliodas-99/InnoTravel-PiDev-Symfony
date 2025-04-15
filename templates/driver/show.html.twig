@@ -1,0 +1,38 @@
+{% extends 'basefrontoffice.html.twig' %}
+
+{% block title %}Driver{% endblock %}
+
+{% block section8 %}
+    <h1>Driver</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ driver.id }}</td>
+            </tr>
+            <tr>
+                <th>CarModel</th>
+                <td>{{ driver.carModel }}</td>
+            </tr>
+            <tr>
+                <th>CarColor</th>
+                <td>{{ driver.carColor }}</td>
+            </tr>
+            <tr>
+                <th>LicensePlate</th>
+                <td>{{ driver.licensePlate }}</td>
+            </tr>
+            <tr>
+                <th>MaxLuggage</th>
+                <td>{{ driver.maxLuggage }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_driver_index') }}">back to list</a>
+
+    <a href="{{ path('app_driver_edit', {'id': driver.id}) }}">edit</a>
+
+    {{ include('driver/_delete_form.html.twig') }}
+{% endblock %}

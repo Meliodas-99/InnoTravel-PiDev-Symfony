@@ -1,0 +1,465 @@
+{% extends 'basefrontoffice.html.twig' %}
+
+{% block title %}My Reservations{% endblock %}
+
+{% block section8 %}
+<div class="reservation-list-wrapper">
+    <div class="reservation-list-header">
+        <h1>My Reservations</h1>
+        <a href="{{ path('app_reservation_new') }}" class="new-reservation-btn">
+            <i class="ti-plus"></i> New Reservation
+        </a>
+    </div>
+    
+    <div class="reservation-filters">
+        <div class="search-box">
+            <i class="ti-search search-icon"></i>
+            <input type="text" id="reservation-search" placeholder="Search reservations...">
+        </div>
+        
+        <div class="filter-options">
+            <select id="status-filter">
+                <option value="">All Statuses</option>
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="cancelled">Cancelled</option>
+            </select>
+            
+            <select id="date-filter">
+                <option value="">All Time</option>
+                <option value="today">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+            </select>
+        </div>
+    </div>
+    
+    {% if reservations|length > 0 %}
+    <div class="reservation-grid">
+        {% for reservation in reservations %}
+        <div class="reservation-card" data-status="{{ reservation.status|lower }}">
+            <div class="reservation-card-header status-{{ reservation.status|lower }}">
+                <span class="status-indicator"></span>
+                <span class="status-text">{{ reservation.status }}</span>
+                <span class="reservation-date">{{ reservation.createdAt ? reservation.createdAt|date('M d, Y') : 'N/A' }}</span>
+            </div>
+            
+            <div class="reservation-card-body">
+                <div class="journey-info">
+                    <div class="location pickup">
+                        <i class="ti-location-pin"></i>
+                        <span>{{ reservation.pickupAddress }}</span>
+                    </div>
+                    
+                    <div class="direction-icon">
+                        <i class="ti-arrow-down"></i>
+                    </div>
+                    
+                    <div class="location destination">
+                        <i class="ti-map-alt"></i>
+                        <span>{{ reservation.destinationAddress }}</span>
+                    </div>
+                </div>
+                
+                <div class="reservation-details">
+                    <div class="detail">
+                        <span class="detail-label">Price:</span>
+                        <span class="detail-value">{{ reservation.price ? reservation.price ~ ' TND' : 'N/A' }}</span>
+                    </div>
+                    
+                    <div class="detail">
+                        <span class="detail-label">Duration:</span>
+                        <span class="detail-value">{{ reservation.estimatedDuration ?: 'N/A' }}</span>
+                    </div>
+                    
+                    {% if reservation.sepcialRequests %}
+                    <div class="detail special-requests">
+                        <span class="detail-label">Special:</span>
+                        <span class="detail-value">{{ reservation.sepcialRequests|length > 50 ? reservation.sepcialRequests|slice(0, 50) ~ '...' : reservation.sepcialRequests }}</span>
+                    </div>
+                    {% else %}
+                    <div class="detail special-requests">
+                        <span class="detail-label">Special:</span>
+                        <span class="detail-value">No special requests</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="reservation-card-footer">
+                <a href="{{ path('app_reservation_show', {'id': reservation.id}) }}" class="btn-action view">
+                    <i class="ti-eye"></i> View
+                </a>
+                <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}" class="btn-action edit">
+                    <i class="ti-pencil"></i> Edit
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-reservations">
+        <img src="{{ asset('assets/img/empty-state.svg') }}" alt="No reservations" class="empty-state-img">
+        <h3>No Reservations Found</h3>
+        <p>You haven't made any reservations yet. Create your first one now!</p>
+        <a href="{{ path('app_reservation_new') }}" class="btn-create-first">Create Your First Reservation</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <style>
+        .reservation-list-wrapper {
+            padding: 50px 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .reservation-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .reservation-list-header h1 {
+            font-size: 32px;
+            color: #263A5B;
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .new-reservation-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #FF9F67;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .new-reservation-btn:hover {
+            background-color: #263A5B;
+            transform: translateY(-2px);
+        }
+        
+        .reservation-filters {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+        
+        #reservation-search {
+            padding: 12px 15px 12px 40px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            width: 100%;
+            font-size: 14px;
+        }
+        
+        #reservation-search:focus {
+            outline: none;
+            border-color: #FF9F67;
+            box-shadow: 0 0 0 3px rgba(255, 159, 103, 0.1);
+        }
+        
+        .filter-options {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .filter-options select {
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            background-color: white;
+            cursor: pointer;
+            font-size: 14px;
+            min-width: 150px;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23777' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+        }
+        
+        .filter-options select:focus {
+            outline: none;
+            border-color: #FF9F67;
+            box-shadow: 0 0 0 3px rgba(255, 159, 103, 0.1);
+        }
+        
+        .reservation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .reservation-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .reservation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .reservation-card-header {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        
+        .status-indicator {
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-text {
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+        
+        .reservation-date {
+            color: #777;
+            font-size: 14px;
+        }
+        
+        .status-pending {
+            background-color: #fff9ed;
+            color: #FFC107;
+        }
+        
+        .status-pending .status-indicator {
+            background-color: #FFC107;
+        }
+        
+        .status-confirmed {
+            background-color: #f0f9f0;
+            color: #4CAF50;
+        }
+        
+        .status-confirmed .status-indicator {
+            background-color: #4CAF50;
+        }
+        
+        .status-cancelled {
+            background-color: #feeeee;
+            color: #F44336;
+        }
+        
+        .status-cancelled .status-indicator {
+            background-color: #F44336;
+        }
+        
+        .reservation-card-body {
+            padding: 15px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .journey-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .location i {
+            color: #FF9F67;
+        }
+        
+        .location.destination i {
+            color: #263A5B;
+        }
+        
+        .location span {
+            font-size: 14px;
+            color: #444;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .direction-icon {
+            display: flex;
+            justify-content: center;
+            color: #ddd;
+            font-size: 16px;
+        }
+        
+        .reservation-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .detail {
+            flex: 1;
+            min-width: 100px;
+        }
+        
+        .special-requests {
+            flex-basis: 100%;
+        }
+        
+        .detail-label {
+            font-size: 12px;
+            color: #777;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .detail-value {
+            font-size: 14px;
+            color: #263A5B;
+            font-weight: 500;
+        }
+        
+        .reservation-card-footer {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-action.view {
+            color: #263A5B;
+            background-color: #f5f5f5;
+        }
+        
+        .btn-action.edit {
+            color: white;
+            background-color: #007BFF;
+        }
+        
+        .btn-action:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-action.view:hover {
+            background-color: #e9e9e9;
+        }
+        
+        .btn-action.edit:hover {
+            background-color: #0069d9;
+        }
+        
+        .no-reservations {
+            text-align: center;
+            padding: 60px 0;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .empty-state-img {
+            max-width: 250px;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+        
+        .no-reservations h3 {
+            font-size: 24px;
+            color: #263A5B;
+            margin-bottom: 15px;
+        }
+        
+        .no-reservations p {
+            color: #777;
+            margin-bottom: 25px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-create-first {
+            display: inline-block;
+            background-color: #FF9F67;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-create-first:hover {
+            background-color: #263A5B;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .reservation-list-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .reservation-filters {
+                flex-direction: column;
+            }
+            
+            .filter-options {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .filter-options select {
+                flex: 1;
+            }
+            
+            .reservation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+{% endblock %}

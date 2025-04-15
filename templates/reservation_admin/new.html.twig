@@ -1,0 +1,261 @@
+{% extends 'basebackoffice.html.twig' %}
+
+{% block title %}New Reservation{% endblock %}
+
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Create Reservation</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('app_reservation_admin_index') }}">Reservations</a></li>
+                    <li class="breadcrumb-item active">New</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Reservation Information</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <form id="reservation-form">
+                    <div class="row">
+                        <!-- Left column -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Customer</label>
+                                <select class="form-control select2">
+                                    <option selected disabled>Select customer</option>
+                                    <option>John Doe - #1245</option>
+                                    <option>Jane Smith - #1246</option>
+                                    <option>James Wilson - #1247</option>
+                                </select>
+                                <small class="form-text text-muted">
+                                    <a href="#" class="text-primary"><i class="fas fa-plus"></i> Add new customer</a>
+                                </small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Pickup Address</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="pickup_address" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Destination Address</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-flag"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="destination_address" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Special Requests</label>
+                                <textarea class="form-control" rows="3" placeholder="Enter any special requirements..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- Right column -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Pickup Date & Time</label>
+                                <div class="input-group date" id="pickup-datetime" data-target-input="nearest">
+                                    <div class="input-group-prepend" data-target="#pickup-datetime" data-toggle="datetimepicker">
+                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control datetimepicker-input" data-target="#pickup-datetime" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Estimated Duration</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-clock"></i></span>
+                                    </div>
+                                    <input type="number" class="form-control" min="1">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">minutes</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Price</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                    </div>
+                                    <input type="number" class="form-control" step="0.01" min="0">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select class="form-control">
+                                    <option>Pending</option>
+                                    <option>Confirmed</option>
+                                    <option>Cancelled</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Assign Driver</label>
+                                <select class="form-control select2">
+                                    <option selected disabled>Select driver</option>
+                                    <option>Driver #2 - Black Toyota (ABC123)</option>
+                                    <option>Driver #3 - White Honda (XYZ789)</option>
+                                    <option>Driver #4 - Silver Ford (DEF456)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="float-right">
+                            <a href="{{ path('app_reservation_admin_index') }}" class="btn btn-secondary">
+                                Cancel
+                            </a>
+                            <button type="submit" form="reservation-form" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Create Reservation
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Actions Card -->
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">Quick Actions</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-info"><i class="fas fa-search"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Check Address</span>
+                                <button class="btn btn-xs btn-info mt-1">Validate</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-sm-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success"><i class="fas fa-calculator"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Calculate Price</span>
+                                <button class="btn btn-xs btn-success mt-1">Auto-Fill</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-sm-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-warning"><i class="fas fa-user-check"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Find Best Driver</span>
+                                <button class="btn btn-xs btn-warning mt-1">Auto-Assign</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+$(function () {
+    // Initialize Select2 Elements
+    if ($.fn.select2) {
+        $('.select2').select2();
+    }
+    
+    // Initialize datepicker
+    if ($.fn.datetimepicker) {
+        $('#pickup-datetime').datetimepicker({
+            icons: {
+                time: 'far fa-clock'
+            },
+            format: 'YYYY-MM-DD HH:mm'
+        });
+    }
+    
+    // Quick action buttons
+    $('.btn-xs.btn-info').on('click', function() {
+        // Simulate address validation
+        var pickup = $('input[name="pickup_address"]').val();
+        var destination = $('input[name="destination_address"]').val();
+        
+        if (pickup && destination) {
+            toastr.success('Addresses validated successfully');
+        } else {
+            toastr.error('Please enter both addresses');
+        }
+    });
+    
+    $('.btn-xs.btn-success').on('click', function() {
+        // Simulate price calculation
+        var pickup = $('input[name="pickup_address"]').val();
+        var destination = $('input[name="destination_address"]').val();
+        
+        if (pickup && destination) {
+            // This would normally call an API to calculate the price
+            $('input[type="number"][step="0.01"]').val('25.50');
+            toastr.success('Price calculated based on distance');
+        } else {
+            toastr.error('Please enter both addresses');
+        }
+    });
+    
+    $('.btn-xs.btn-warning').on('click', function() {
+        // Simulate driver assignment
+        var pickup = $('input[name="pickup_address"]').val();
+        
+        if (pickup) {
+            // This would normally call an API to find the closest driver
+            $('.select2').val('Driver #2 - Black Toyota (ABC123)').trigger('change');
+            toastr.success('Assigned nearest available driver');
+        } else {
+            toastr.error('Please enter pickup address');
+        }
+    });
+});
+</script>
+{% endblock %}

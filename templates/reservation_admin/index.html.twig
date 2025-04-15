@@ -1,0 +1,199 @@
+{% extends 'basebackoffice.html.twig' %}
+
+{% block title %}Reservation Management{% endblock %}
+
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Reservation Management</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Reservations</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">All Reservations</h3>
+                        <div class="card-tools">
+                            <a href="{{ path('app_reservation_admin_new') }}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-plus"></i> New Reservation
+                            </a>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Pickup Location</th>
+                                    <th>Destination</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                    <th>Created At</th>
+                                    <th>Duration</th>
+                                    <th>Special Requests</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for reservation in reservations %}
+                                <tr>
+                                    <td>{{ reservation.id }}</td>
+                                    <td>{{ reservation.pickupAddress }}</td>
+                                    <td>{{ reservation.destinationAddress }}</td>
+                                    <td>
+                                        {% if reservation.price %}
+                                            <span class="badge bg-success">{{ reservation.price }}</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">Not set</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if reservation.status == 'Pending' %}
+                                            <span class="badge bg-warning">{{ reservation.status }}</span>
+                                        {% elseif reservation.status == 'Confirmed' %}
+                                            <span class="badge bg-success">{{ reservation.status }}</span>
+                                        {% elseif reservation.status == 'Cancelled' %}
+                                            <span class="badge bg-danger">{{ reservation.status }}</span>
+                                        {% else %}
+                                            <span class="badge bg-info">{{ reservation.status }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ reservation.createdAt ? reservation.createdAt|date('Y-m-d H:i') : '' }}</td>
+                                    <td>{{ reservation.estimatedDuration }}</td>
+                                    <td>
+                                        {% if reservation.sepcialRequests %}
+                                            <span class="text-primary">
+                                                <i class="fas fa-info-circle"></i> {{ reservation.sepcialRequests }}
+                                            </span>
+                                        {% else %}
+                                            <span class="text-muted">None</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <a href="{{ path('app_reservation_admin_show', {'id': reservation.id}) }}" class="btn btn-info btn-sm" title="View details">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ path('app_reservation_admin_edit', {'id': reservation.id}) }}" class="btn btn-warning btn-sm" title="Edit reservation">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="9" class="text-center py-5">
+                                        <div class="empty-state">
+                                            <i class="fas fa-database fa-3x text-muted"></i>
+                                            <p class="mt-3">No reservations found in the system.</p>
+                                            <a href="{{ path('app_reservation_admin_new') }}" class="btn btn-primary">
+                                                <i class="fas fa-plus"></i> Create First Reservation
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                        <ul class="pagination pagination-sm m-0 float-right">
+                            <li class="page-item"><a class="page-link" href="#">«</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">»</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        
+        <!-- Dashboard Statistics -->
+        <div class="row mt-4">
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>{{ reservations|length }}</h3>
+                        <p>Total Reservations</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>{{ reservations|filter(r => r.status == 'Confirmed')|length }}</h3>
+                        <p>Confirmed</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>{{ reservations|filter(r => r.status == 'Pending')|length }}</h3>
+                        <p>Pending</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>{{ reservations|filter(r => r.status == 'Cancelled')|length }}</h3>
+                        <p>Cancelled</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+  $(function () {
+    // Add any custom JavaScript for the reservation page here
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>
+{% endblock %}
