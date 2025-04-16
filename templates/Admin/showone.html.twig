@@ -1,0 +1,21 @@
+{% extends 'basefrontoffice.html.twig' %}
+
+{% block title %}{{ event.name }}{% endblock %}
+
+{% block body %}
+<section class="event-detail">
+    <div class="container">
+        <h1>{{ event.name }}</h1>
+        <p><strong>Date:</strong> {{ event.date }}</p>
+        <p><strong>Location:</strong> {{ event.location }}</p>
+        <p><strong>Category:</strong> {{ event.category }}</p>
+        <p><strong>Description:</strong></p>
+        <p>{{ event.description }}</p>
+        <p><strong>Price:</strong> {{ event.price }} TND</p>
+        {% if event.organizer %}
+            <p><strong>Organizer:</strong> {{ event.organizer.name }}</p>
+        {% endif %}
+        <a href="{{ path('event_index') }}" class="btn btn-primary mt-3">← Back to all events</a>
+    </div>
+</section>
+{% endblock %}

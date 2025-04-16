@@ -1,0 +1,28 @@
+{% extends 'basefrontoffice.html.twig' %}
+
+{% block title %}New Event{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="h5 mb-0">Create New Event</h2>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            <button class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save
+                            </button>
+                            <a href="{{ path('admin_home') }}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Cancel
+                            </a>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

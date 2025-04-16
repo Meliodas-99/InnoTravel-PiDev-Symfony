@@ -1,11 +1,16 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'basebackoffice.html.twig' %}
 {% block title %}New Organizer{% endblock %}
 
-{% block body %}
-    <h1>Create new Organizer</h1>
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card p-4 shadow-sm">
+        <h1 class="mb-4">Create New Organizer</h1>
 
-    {{ include('organizer/_form.html.twig') }}
+        {{ include('organizer/_form.html.twig') }}
 
-    <a href="{{ path('app_organizer_index') }}">back to list</a>
+        <a href="{{ path('app_organizer_index') }}" class="btn btn-secondary mt-3">Back to list</a>
+      </div>
+    </div>
+  </div>
 {% endblock %}

@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'basebackoffice.html.twig' %}
 
 {% block title %}Organizer index{% endblock %}
 
-{% block body %}
+{% block content %}
     <h1>Organizer index</h1>
 
     <table class="table">
@@ -13,6 +13,8 @@
                 <th>Contact_info</th>
                 <th>Website_url</th>
                 <th>Verified</th>
+                <th>Type</th>
+                <th>Years of Experience</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -24,6 +26,8 @@
                 <td>{{ organizer.contactInfo }}</td>
                 <td>{{ organizer.websiteUrl }}</td>
                 <td>{{ organizer.verified ? 'Yes' : 'No' }}</td>
+                <td>{{ organizer.type }}</td>
+                <td>{{ organizer.yearsOfExperience }}</td>
                 <td>
                     <a href="{{ path('app_organizer_show', {'id': organizer.id}) }}">show</a>
                     <a href="{{ path('app_organizer_edit', {'id': organizer.id}) }}">edit</a>

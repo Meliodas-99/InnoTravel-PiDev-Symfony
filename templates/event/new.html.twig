@@ -1,6 +1,7 @@
+{% extends 'basebackoffice.html.twig' %}
 {% block title %}New Event{% endblock %}
 
-{% block body %}
+{% block content %}
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card p-4 shadow-sm">
@@ -11,5 +12,5 @@
         <a href="{{ path('app_event_index') }}" class="btn btn-secondary mt-3">Back to list</a>
       </div>
     </div>
-  </div>
+  </div>'
 {% endblock %}

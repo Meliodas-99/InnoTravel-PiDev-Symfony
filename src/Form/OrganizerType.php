@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Organizer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,11 +13,19 @@ class OrganizerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('id')
             ->add('name')
             ->add('contact_info')
             ->add('website_url')
             ->add('verified')
+            ->add('type', ChoiceType::class, [
+                'choices' => [
+                    'Online' => 'Online',
+                    'In-person' => 'In-person',
+                    'Hybrid' => 'Hybrid',
+                ],
+                'placeholder' => 'Choose a type',
+            ])
+            ->add('yearsOfExperience');
         ;
     }
 
