@@ -1,0 +1,195 @@
+{# templates/post/indexAdmin.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/fontawesome.css">
+<link rel="stylesheet" href="/assets/css/templatemo-grad-school.css">
+<link rel="stylesheet" href="/assets/css/owl.css">
+<link rel="stylesheet" href="/assets/css/lightbox.css">
+<link rel="stylesheet" href="{{ asset('css/kk.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    .d-none { display: none; }
+    .btn-like, .btn-comment, .btn-share {
+        border: none;
+        background: none;
+        color: #666;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+    .btn-like:hover, .btn-comment:hover, .btn-share:hover {
+        color: #1877f2;
+    }
+    .btn-like i, .btn-comment i, .btn-share i {
+        margin-right: 5px;
+    }
+    .post-actions {
+        border-top: 1px solid #ddd;
+        padding-top: 10px;
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+    .comment-list {
+        margin-top: 10px;
+        padding: 10px;
+        background: #f9f9f9;
+        border-radius: 5px;
+    }
+    .comment-item {
+        display: flex;
+        align-items: flex-start;
+        border-bottom: 1px solid #eee;
+        padding: 10px 0;
+    }
+    .comment-item:last-child { border-bottom: none; }
+    .comment-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    .comment-content-wrapper { flex: 1; }
+    .comment-user { font-weight: bold; color: #333; }
+    .comment-content { font-size: 0.9rem; color: #444; margin-top: 5px; }
+    .comment-date { font-size: 0.8rem; color: #777; margin-top: 5px; }
+    .add-comment-form {
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="content-page">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4">Gestion des posts</h5>
+                            <form action="{{ path('app_post') }}" method="GET" class="mb-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="search" placeholder="Rechercher un post..." value="{{ app.request.query.get('search') }}">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-search"></i> Rechercher
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row">
+                                {% for post in posts %}
+                                    <div class="col-12 mb-4">
+                                        <div class="card card-post">
+                                            
+                                            <div class="card-body">
+
+                                                <h5 class="post-nom">{{ post.title }}</h5>
+                                                <p class="post-type"><strong>Type :</strong> {{ post.content }}</p>
+                                                <p class="post-date"><strong>Date de création :</strong> {{ post.createdAt|date('d-m-Y') }}</p>
+                                                <div class="post-actions">
+                                                    <button class="btn btn-like"><i class="fas fa-thumbs-up"></i> J'aime</button>
+                                                    <button class="btn btn-comment" onclick="toggleComments({{ post.id }})">
+                                                        <i class="fas fa-comment"></i> Voir les commentaires
+                                                    </button>
+                                                    <button class="btn btn-share"><i class="fas fa-share"></i> Partager</button>
+    <div class="mt-3 text-end">
+        <a href="{{ path('update_post', {'id': post.id}) }}" class="btn btn-sm btn-primary">
+            <i class="fas fa-edit"></i> Modifier
+        </a>
+        <a href="{{ path('delete_post', {'id': post.id}) }}" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ce post ?');">
+            <i class="fas fa-trash"></i> Supprimer
+        </a>
+    </div>
+
+                                                </div>
+
+                                                <div id="comments-{{ post.id }}" class="comment-list d-none">
+                                                    {% for comment in post.comments %}
+                                                        <div class="comment-item">
+                                                            <img src="{{ asset('images/user_avatar.png') }}" alt="Avatar" class="comment-avatar">
+                                                            <div class="comment-content-wrapper">
+                                                                <div class="comment-user">Utilisateur</div>
+                                                                <p class="comment-content">{{ comment.content }}</p>
+                                                                <small class="comment-date">{{ comment.createdAt|date('d/m/Y H:i') }}</small>
+                                                                <div class="mt-2">
+                                                                    <button class="btn btn-sm btn-warning" onclick="toggleEditForm({{ comment.id }})">Modifier</button>
+                                                                    <a href="{{ path('delete_comment', {'id': comment.id}) }}" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ce commentaire ?');">Supprimer</a>
+                                                                </div>
+                                                                <div id="edit-comment-form-{{ comment.id }}" class="mt-2 d-none">
+                                                                    <form action="{{ path('update_comment', {'id': comment.id}) }}" method="post">
+                                                                        <textarea name="comment_content" class="form-control" rows="3">{{ comment.content }}</textarea>
+                                                                        <button type="submit" class="btn btn-success btn-sm mt-2">Enregistrer</button>
+                                                                        <button type="button" class="btn btn-secondary btn-sm mt-2" onclick="toggleEditForm({{ comment.id }})">Annuler</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% else %}
+                                                        <p class="text-muted">Aucun commentaire pour ce post.</p>
+                                                    {% endfor %}
+
+                                                    <div class="add-comment-form">
+                                                        {{ form_start(forms[post.id], {'attr': {'action': path('post_comments', {'id': post.id}), 'method': 'POST'}}) }}
+                                                            {{ form_widget(forms[post.id].content, {'attr': {'placeholder': 'Votre message...', 'class': 'form-control'}}) }}
+                                                            <button type="submit" class="btn btn-primary mt-2">Commenter</button>
+                                                        {{ form_end(forms[post.id]) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="col-12">
+                                        <div class="alert alert-info">Aucun post trouvé.</div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% if posts|length > 0 %}
+                                <div class="pagination justify-content-center mt-4">
+                                    <ul class="pagination">
+                                        {% if previous %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="{{ path('app_post') }}?page={{ previous }}&search={{ app.request.query.get('search') }}">Précédent</a>
+                                            </li>
+                                        {% endif %}
+                                        <li class="page-item active"><span class="page-link">{{ currentPage }}</span></li>
+                                        {% if next %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="{{ path('app_post') }}?page={{ next }}&search={{ app.request.query.get('search') }}">Suivant</a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                    <div class="text-center mt-2">
+                                        Page {{ currentPage }} sur {{ posts.getPageCount() }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+    function toggleComments(postId) {
+        const commentsDiv = document.getElementById(`comments-${postId}`);
+        commentsDiv.classList.toggle('d-none');
+    }
+    
+    function toggleEditForm(commentId) {
+        const form = document.getElementById(`edit-comment-form-${commentId}`);
+        form.classList.toggle('d-none');
+    }
+    </script>
+{% endblock %}
