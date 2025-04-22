@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="wpOceans">
     <link rel="shortcut icon" type="image/png" href="frontoffice/images/favicon.png">
-    <title>Innotravel – Travel,Resort & Hotel Boking</title>
+    <title>Innotravel</title>
     <link rel="icon" href="{{ asset('frontoffice/images/Innotravel LOGO.png') }}" type="image/x-icon">
     
      {% block css %}
@@ -70,8 +70,8 @@
                         <div class="col col-md-5 col-sm-12 col-12">
                             <div class="contact-info">
                                 <ul>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="faq.html">FAQ Us</a></li>
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">FAQ Us</a></li>
                                     <li><a href="#"><i class="ti-facebook"></i></a></li>
                                     <li><a href="#"><i class="ti-twitter-alt"></i></a></li>
                                     <li><a href="#"><i class="ti-instagram"></i></a></li>
@@ -101,7 +101,7 @@
                             </div>
                             <div class="col-lg-2 col-md-4 col-4">
                                 <div class="navbar-header">
-                                    <a class="navbar-brand" href="reservation/index.html.twig"><img src="frontoffice/images/InnoTravel LOGO.png" width="125" height="125"  alt="logo"></a>
+                                    <img src="{{ asset('frontoffice/images/InnoTravel LOGO.png') }}" width="125" height="125" alt="logo">
                                 </div>
                             </div>
                             <div class="col-lg-7 col-md-1 col-1">
@@ -109,19 +109,20 @@
                                     <button class="menu-close"><i class="ti-close"></i></button>
                                     <ul class="nav navbar-nav mb-2 mb-lg-0">
                                         <li class="menu-item-has-children">
-                                            <a class="active" href="#">Home</a>
+                                            <a href="#">Home</a>
                                         </li>
-                                        <li><a href="about.html">Travel</a>
+                                        <li><a href="#">Travel</a>
                                         <ul class="sub-menu">
-                                                <li><a href="places.html">Trip</a></li>
-                                                <li><a href="places-single.html">Itinerary</a></li>
+                                                <li><a href="">Trip</a></li>
+                                                <li><a href="#">Itinerary</a></li>
                                             </ul>
                                         </li>
                                         <li class="menu-item-has-children">
-                                            <a href="#">Reservation</a>
+                                            <a class="active" href="#">Transportation</a>
                                             <ul class="sub-menu">
-                                                <li><a href="places.html">New Reservation</a></li>
-                                                <li><a href="places-single.html">My Reservation</a></li>
+                                            <li><a href="{{ path('app_reservation_new') }}">New Reservation</a></li>
+                                            <li><a href="{{ path('app_reservation_index') }}">My Reservation</a></li>
+                                             <li><a href="{{ path('app_transport_index') }}">My Transports</a></li>
                                             </ul>
                                         </li>
                                         
@@ -131,16 +132,16 @@
                                          <li class="menu-item-has-children">
                                             <a href="#">Accomodation</a>
                                             <ul class="sub-menu">
-                                                <li><a href="blog.html">Book</a></li>
-                                                <li><a href="blog-left-sidebar.html">View Hotels</a></li>
+                                                <li><a href="#">Book</a></li>
+                                                <li><a href="#">View Hotels</a></li>
                                                
                                             </ul>
                                         </li>
                                           <li class="menu-item-has-children">
                                             <a href="#">Social Media</a>
                                             <ul class="sub-menu">
-                                                <li><a href="blog.html">Home Page</a></li>
-                                                <li><a href="blog-left-sidebar.html">View Profile</a></li>
+                                                <li><a href="#">Home Page</a></li>
+                                                <li><a href="#">View Profile</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -158,7 +159,7 @@
                                         </select>
                                     </div>
                                     <div class="close-form">
-                                        <a class="theme-btn" href="login.html">sign up</a>
+                                        <a class="theme-btn" href="#">sign up</a>
                                     </div>
                                 </div>
                             </div>
@@ -272,7 +273,7 @@
                                 </div>
                                 <div class="content">
                                     <h2>
-                                        <a href="places-single.html">Singapore</a>
+                                        <a href="#">Singapore</a>
                                     </h2>
                                     <span>806 places</span>
                                 </div>
@@ -283,7 +284,7 @@
                                 </div>
                                 <div class="content">
                                     <h2>
-                                        <a href="places-single.html">new York</a>
+                                        <a href="#">new York</a>
                                     </h2>
                                     <span>220 places</span>
                                 </div>
@@ -294,7 +295,7 @@
                                 </div>
                                 <div class="content">
                                     <h2>
-                                        <a href="places-single.html">Maldives</a>
+                                        <a href="#">Maldives</a>
                                     </h2>
                                     <span>648 places</span>
                                 </div>
@@ -1019,7 +1020,7 @@
    -->
 
         <!-- start of places-->
-        <section class="places-section section-padding">
+        <section class="places-section ">
         {% block section8 %}
             <div class="container">
                 <div class="wraper">
@@ -1036,7 +1037,7 @@
                             </div>
                             <div class="content">
                                 <h2>
-                                    <a href="places-single.html">France</a>
+                                    <a href="#">France</a>
                                 </h2>
                                 <span>20 minutes drive</span>
                             </div>
@@ -1047,7 +1048,7 @@
                             </div>
                             <div class="content">
                                 <h2>
-                                    <a href="places-single.html">United States</a>
+                                    <a href="#">United States</a>
                                 </h2>
                                 <span>18 minutes drive</span>
                             </div>
@@ -1058,7 +1059,7 @@
                             </div>
                             <div class="content">
                                 <h2>
-                                    <a href="places-single.html">Australia</a>
+                                    <a href="#">Australia</a>
                                 </h2>
                                 <span>28 minutes drive</span>
                             </div>
@@ -1069,7 +1070,7 @@
                             </div>
                             <div class="content">
                                 <h2>
-                                    <a href="places-single.html">Spain</a>
+                                    <a href="#">Spain</a>
                                 </h2>
                                 <span>30 minutes drive</span>
                             </div>
@@ -1080,7 +1081,7 @@
                             </div>
                             <div class="content">
                                 <h2>
-                                    <a href="places-single.html">Greece</a>
+                                    <a href="#">Greece</a>
                                 </h2>
                                 <span>38 minutes drive</span>
                             </div>
@@ -1091,7 +1092,7 @@
                             </div>
                             <div class="content">
                                 <h2>
-                                    <a href="places-single.html">Maldives</a>
+                                    <a href="#">Maldives</a>
                                 </h2>
                                 <span>22 minutes drive</span>
                             </div>
@@ -1102,7 +1103,7 @@
                             </div>
                             <div class="content">
                                 <h2>
-                                    <a href="places-single.html">new York</a>
+                                    <a href="#">new York</a>
                                 </h2>
                                 <span>42 minutes drive</span>
                             </div>
@@ -1113,7 +1114,7 @@
                             </div>
                             <div class="content">
                                 <h2>
-                                    <a href="places-single.html">thailand</a>
+                                    <a href="#">thailand</a>
                                 </h2>
                                 <span>27 minutes drive</span>
                             </div>
@@ -1248,7 +1249,7 @@
                         <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12">
                             <div class="widget about-widget">
                                  <div class="logo widget-title" style="display: flex; justify-content: center; align-items: center;">
-                                     <img class="footer-logo" src="frontoffice/images/Innotravel LOGO.png" width="175px" height="175px" alt="blog">
+                                     <img class="footer-logo" src="{{ asset('frontoffice/images/Innotravel LOGO.png') }}" width="175px" height="175px" alt="blog">
                                  </div>
                                  <p>Ac turpis egestas sed tempus. Nulla aliquet porttitor lacus luctus accumsan tortor
                                  posuere ac ut. Dignissim convallis aenean et tortor.</p>
@@ -1386,12 +1387,12 @@
                                     <h3>popular places:</h3>
                                 </div>
                                 <ul>
-                                    <li><a href="places-single.html">Eiffel Tower - France</a></li>
-                                    <li><a href="places-single.html">Taj Mahal - India</a></li>
-                                    <li><a href="places-single.html">Great Wall of China - China</a></li>
-                                    <li><a href="places-single.html">Machu Picchu - Peru</a></li>
-                                    <li><a href="places-single.html">Pyramids of Giza - Egypt</a></li>
-                                    <li><a href="places-single.html"> Colosseum - Italy</a></li>
+                                    <li><a href="#">Eiffel Tower - France</a></li>
+                                    <li><a href="#">Taj Mahal - India</a></li>
+                                    <li><a href="#">Great Wall of China - China</a></li>
+                                    <li><a href="#">Machu Picchu - Peru</a></li>
+                                    <li><a href="#">Pyramids of Giza - Egypt</a></li>
+                                    <li><a href="#"> Colosseum - Italy</a></li>
                                 </ul>
                             </div>
                         </div>

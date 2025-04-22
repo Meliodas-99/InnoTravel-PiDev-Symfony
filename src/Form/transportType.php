@@ -2,12 +2,13 @@
 
 namespace App\Form;
 
-use App\Entity\Driver;
+use App\Entity\transport;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class DriverType extends AbstractType
+class transportType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -16,13 +17,22 @@ class DriverType extends AbstractType
             ->add('carColor')
             ->add('licensePlate')
             ->add('maxLuggage')
+            ->add('vehicleType', ChoiceType::class, [
+                'choices' => [
+                    'Car' => 'car',
+                    'Taxi' => 'taxi',
+                    'Minibus' => 'minibus',
+                    'Truck' => 'truck',
+                ],
+                'placeholder' => 'Choose a vehicle type',
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Driver::class,
+            'data_class' => transport::class,
         ]);
     }
 }

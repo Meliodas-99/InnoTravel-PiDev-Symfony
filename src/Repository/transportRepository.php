@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\Driver;
+use App\Entity\transport;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Driver>
+ * @extends ServiceEntityRepository<transport>
  */
-class DriverRepository extends ServiceEntityRepository
+class transportRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Driver::class);
+        parent::__construct($registry, transport::class);
     }
 
 //    /**
-//     * @return Driver[] Returns an array of Driver objects
+//     * @return transport[] Returns an array of transport objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -31,7 +31,7 @@ class DriverRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Driver
+//    public function findOneBySomeField($value): ?transport
 //    {
 //        return $this->createQueryBuilder('d')
 //            ->andWhere('d.exampleField = :val')

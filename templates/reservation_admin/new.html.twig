@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Create Reservation</h1>
+                <h1 class="m-0">Create New Reservation</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -22,174 +22,17 @@
 
 <section class="content">
     <div class="container-fluid">
-        <div class="card card-primary">
-            <div class="card-header">
-                <h3 class="card-title">Reservation Information</h3>
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="card-body">
-                <form id="reservation-form">
-                    <div class="row">
-                        <!-- Left column -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Customer</label>
-                                <select class="form-control select2">
-                                    <option selected disabled>Select customer</option>
-                                    <option>John Doe - #1245</option>
-                                    <option>Jane Smith - #1246</option>
-                                    <option>James Wilson - #1247</option>
-                                </select>
-                                <small class="form-text text-muted">
-                                    <a href="#" class="text-primary"><i class="fas fa-plus"></i> Add new customer</a>
-                                </small>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Pickup Address</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control" name="pickup_address" required>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Destination Address</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-flag"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control" name="destination_address" required>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Special Requests</label>
-                                <textarea class="form-control" rows="3" placeholder="Enter any special requirements..."></textarea>
-                            </div>
-                        </div>
-                        
-                        <!-- Right column -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Pickup Date & Time</label>
-                                <div class="input-group date" id="pickup-datetime" data-target-input="nearest">
-                                    <div class="input-group-prepend" data-target="#pickup-datetime" data-toggle="datetimepicker">
-                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control datetimepicker-input" data-target="#pickup-datetime" required>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Estimated Duration</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="far fa-clock"></i></span>
-                                    </div>
-                                    <input type="number" class="form-control" min="1">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">minutes</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Price</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                                    </div>
-                                    <input type="number" class="form-control" step="0.01" min="0">
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Status</label>
-                                <select class="form-control">
-                                    <option>Pending</option>
-                                    <option>Confirmed</option>
-                                    <option>Cancelled</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Assign Driver</label>
-                                <select class="form-control select2">
-                                    <option selected disabled>Select driver</option>
-                                    <option>Driver #2 - Black Toyota (ABC123)</option>
-                                    <option>Driver #3 - White Honda (XYZ789)</option>
-                                    <option>Driver #4 - Silver Ford (DEF456)</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="float-right">
-                            <a href="{{ path('app_reservation_admin_index') }}" class="btn btn-secondary">
-                                Cancel
-                            </a>
-                            <button type="submit" form="reservation-form" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Create Reservation
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Quick Actions Card -->
-        <div class="card card-info">
-            <div class="card-header">
-                <h3 class="card-title">Quick Actions</h3>
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="card-body p-0">
-                <div class="row">
-                    <div class="col-md-4 col-sm-6">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-info"><i class="fas fa-search"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Check Address</span>
-                                <button class="btn btn-xs btn-info mt-1">Validate</button>
-                            </div>
-                        </div>
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card card-light">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-calendar-plus mr-2"></i>Reservation Details
+                        </h3>
                     </div>
                     
-                    <div class="col-md-4 col-sm-6">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-success"><i class="fas fa-calculator"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Calculate Price</span>
-                                <button class="btn btn-xs btn-success mt-1">Auto-Fill</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 col-sm-6">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-warning"><i class="fas fa-user-check"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">Find Best Driver</span>
-                                <button class="btn btn-xs btn-warning mt-1">Auto-Assign</button>
-                            </div>
-                        </div>
+                    <div class="card-body">
+                        {{ include('reservation_admin/_form.html.twig', {'button_label': 'Create Reservation'}) }}
                     </div>
                 </div>
             </div>
@@ -198,64 +41,247 @@
 </section>
 {% endblock %}
 
-{% block javascripts %}
-{{ parent() }}
-<script>
-$(function () {
-    // Initialize Select2 Elements
-    if ($.fn.select2) {
-        $('.select2').select2();
-    }
-    
-    // Initialize datepicker
-    if ($.fn.datetimepicker) {
-        $('#pickup-datetime').datetimepicker({
-            icons: {
-                time: 'far fa-clock'
-            },
-            format: 'YYYY-MM-DD HH:mm'
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Modern card styling */
+        .card-light {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border-bottom: none;
+            padding: 1.25rem 1.5rem;
+        }
+        
+        .card-title {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .card-body {
+            padding: 2rem;
+        }
+        
+        /* Form layout improvements */
+        .form-group {
+            margin-bottom: 1.75rem;
+        }
+        
+        .form-group label {
+            font-weight: 500;
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+            display: block;
+            font-size: 0.9rem;
+        }
+        
+        .form-control {
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: none;
+            height: auto;
+        }
+        
+        .form-control:focus {
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+        }
+        
+        /* Button styling - Improved Save Button */
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+        
+        .btn-save {
+            background: #4CAF50;
+            border: none;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: inline-flex;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-save:hover {
+            background: #43A047;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .btn-save:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+        }
+        
+        .btn-save i {
+            margin-right: 0.75rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Ripple effect */
+        .btn-save:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .btn-save:focus:not(:active)::after {
+            animation: ripple 0.6s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+        
+        /* Back button */
+        .back-btn {
+            background: #f5f5f5;
+            color: #555;
+            border: none;
+            padding: 0.75rem 1.75rem;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .back-btn:hover {
+            background: #e0e0e0;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        /* Error styling */
+        .invalid-feedback {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #e53e3e;
+        }
+        
+        .is-invalid {
+            border-color: #fc8181 !important;
+        }
+        
+        .is-invalid:focus {
+            box-shadow: 0 0 0 3px rgba(252, 129, 129, 0.2) !important;
+        }
+        
+        /* Floating label effect */
+        .form-group {
+            position: relative;
+        }
+        
+        .form-group.focused label {
+            color: #4299e1;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .card-body {
+                padding: 1.5rem;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .back-btn, .btn-save {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Enhanced focus effects
+            const formControls = document.querySelectorAll('.form-control');
+            formControls.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.closest('.form-group').classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.closest('.form-group').classList.remove('focused');
+                });
+            });
+            
+            // Add character counter for textareas
+            const textareas = document.querySelectorAll('textarea.form-control');
+            textareas.forEach(textarea => {
+                const counter = document.createElement('small');
+                counter.className = 'text-muted float-right mt-1';
+                counter.textContent = `${textarea.value.length}/500`;
+                textarea.parentNode.appendChild(counter);
+                
+                textarea.addEventListener('input', function() {
+                    counter.textContent = `${this.value.length}/500`;
+                });
+            });
+            
+            // Save button loading state
+            const saveButton = document.querySelector('.btn-save');
+            if (saveButton) {
+                saveButton.addEventListener('click', function(e) {
+                    if (!this.classList.contains('loading')) {
+                        this.classList.add('loading');
+                        const originalHtml = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-2"></i> Saving...';
+                        
+                        // Reset after 2 seconds (for demo)
+                        setTimeout(() => {
+                            this.innerHTML = '<i class="fas fa-check mr-2"></i> Saved!';
+                            setTimeout(() => {
+                                this.innerHTML = originalHtml;
+                                this.classList.remove('loading');
+                            }, 1500);
+                        }, 2000);
+                    }
+                });
+            }
         });
-    }
-    
-    // Quick action buttons
-    $('.btn-xs.btn-info').on('click', function() {
-        // Simulate address validation
-        var pickup = $('input[name="pickup_address"]').val();
-        var destination = $('input[name="destination_address"]').val();
-        
-        if (pickup && destination) {
-            toastr.success('Addresses validated successfully');
-        } else {
-            toastr.error('Please enter both addresses');
-        }
-    });
-    
-    $('.btn-xs.btn-success').on('click', function() {
-        // Simulate price calculation
-        var pickup = $('input[name="pickup_address"]').val();
-        var destination = $('input[name="destination_address"]').val();
-        
-        if (pickup && destination) {
-            // This would normally call an API to calculate the price
-            $('input[type="number"][step="0.01"]').val('25.50');
-            toastr.success('Price calculated based on distance');
-        } else {
-            toastr.error('Please enter both addresses');
-        }
-    });
-    
-    $('.btn-xs.btn-warning').on('click', function() {
-        // Simulate driver assignment
-        var pickup = $('input[name="pickup_address"]').val();
-        
-        if (pickup) {
-            // This would normally call an API to find the closest driver
-            $('.select2').val('Driver #2 - Black Toyota (ABC123)').trigger('change');
-            toastr.success('Assigned nearest available driver');
-        } else {
-            toastr.error('Please enter pickup address');
-        }
-    });
-});
-</script>
+    </script>
 {% endblock %}

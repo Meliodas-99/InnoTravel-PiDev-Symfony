@@ -17,7 +17,7 @@ class Reservation
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
-    private ?Driver $driver = null;
+    private ?transport $transport = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: 'Pickup address is required.')]
@@ -60,14 +60,14 @@ class Reservation
         return $this->id;
     }
 
-    public function getDriver(): ?Driver
+    public function gettransport(): ?transport
     {
-        return $this->driver;
+        return $this->transport;
     }
 
-    public function setDriver(?Driver $driver): static
+    public function settransport(?transport $transport): static
     {
-        $this->driver = $driver;
+        $this->transport = $transport;
 
         return $this;
     }

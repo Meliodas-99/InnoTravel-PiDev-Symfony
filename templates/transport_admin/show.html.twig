@@ -1,17 +1,17 @@
 {% extends 'basebackoffice.html.twig' %}
 
-{% block title %}Driver Details{% endblock %}
+{% block title %}transport Details{% endblock %}
 
 {% block content %}
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Driver #{{ driver.id }}</h1>
+                    <h1 class="m-0">transport #{{ transport.id }}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ path('app_driver_admin_index') }}">Drivers</a></li>
+                        <li class="breadcrumb-item"><a href="{{ path('app_transport_admin_index') }}">transports</a></li>
                         <li class="breadcrumb-item active">Details</li>
                     </ol>
                 </div>
@@ -40,18 +40,18 @@
                                         <div class="card-body pt-0">
                                             <div class="row">
                                                 <div class="col-7">
-                                                    <h2 class="lead"><b>{{ driver.carModel }}</b></h2>
+                                                    <h2 class="lead"><b>{{ transport.carModel }}</b></h2>
                                                     <p class="text-muted text-sm">
-                                                        <b>Color: </b> {{ driver.carColor }}
+                                                        <b>Color: </b> {{ transport.carColor }}
                                                     </p>
                                                     <ul class="ml-4 mb-0 fa-ul text-muted">
                                                         <li class="small">
                                                             <span class="fa-li"><i class="fas fa-id-card"></i></span>
-                                                            License: {{ driver.licensePlate }}
+                                                            License: {{ transport.licensePlate }}
                                                         </li>
                                                         <li class="small mt-2">
                                                             <span class="fa-li"><i class="fas fa-suitcase"></i></span>
-                                                            Max Luggage: {{ driver.maxLuggage }}
+                                                            Max Luggage: {{ transport.maxLuggage }}
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -108,8 +108,8 @@
                             <div class="row mt-3">
                                 <div class="col-md-12">
                                     <div class="callout callout-info">
-                                        <h5><i class="fas fa-info-circle"></i> Driver Service Area:</h5>
-                                        <p>This driver primarily operates in the Central and North regions of the city.</p>
+                                        <h5><i class="fas fa-info-circle"></i> transport Service Area:</h5>
+                                        <p>This transport primarily operates in the Central and North regions of the city.</p>
                                     </div>
                                 </div>
                             </div>
@@ -185,10 +185,10 @@
                         </div>
                         <div class="card-body">
                             <div class="btn-group btn-block mb-3">
-                                <a href="{{ path('app_driver_admin_index') }}" class="btn btn-default">
+                                <a href="{{ path('app_transport_admin_index') }}" class="btn btn-default">
                                     <i class="fas fa-arrow-left mr-1"></i> Back to list
                                 </a>
-                                <a href="{{ path('app_driver_admin_edit', {'id': driver.id}) }}" class="btn btn-primary">
+                                <a href="{{ path('app_transport_admin_edit', {'id': transport.id}) }}" class="btn btn-primary">
                                     <i class="fas fa-edit mr-1"></i> Edit
                                 </a>
                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal">
@@ -216,18 +216,18 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h4 class="modal-title">Confirm Driver Deletion</h4>
+                    <h4 class="modal-title">Confirm transport Deletion</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to delete this driver record?</p>
+                    <p>Are you sure you want to delete this transport record?</p>
                     <p class="text-danger"><small>This action cannot be undone.</small></p>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    {{ include('driver_admin/_delete_form.html.twig') }}
+                    {{ include('transport_admin/_delete_form.html.twig') }}
                 </div>
             </div>
         </div>

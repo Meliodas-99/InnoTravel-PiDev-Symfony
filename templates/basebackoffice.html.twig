@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE Dashboard</title>
+  <title>Innotravel Admin Dashboard</title>
   <link rel="icon" href="{{ asset('frontoffice/images/Innotravel LOGO.png') }}" type="image/x-icon">
 {% block css %}
   <!-- Google Font: Source Sans Pro -->
@@ -31,6 +31,11 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
+{% block preloader %}
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="{{ asset('backoffice/dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60" width="60">
+  </div>
+{% endblock %}
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
   {% block navbar %}
@@ -40,7 +45,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index.html" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Help</a>
@@ -108,7 +113,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
   {% block aside %}
     <!-- Brand Logo -->
-    <a href="index.html" class="brand-link">
+    <a href="#" class="brand-link">
       <img src="{{ asset('backoffice/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Admin Panel</span>
     </a>
@@ -150,21 +155,21 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="places.html" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Travelers</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="places-single.html" class="nav-link">
+          <a href="{{ path('app_transport_admin_index') }}" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Drivers</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="places-single.html" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
-            <p>Event Planners</p>
+            <p>Orginizers</p>
           </a>
         </li>
       </ul>
@@ -172,21 +177,44 @@
 
     <!-- Travel -->
     <li class="nav-item has-treeview">
-      <a href="about.html" class="nav-link">
+      <a href="#" class="nav-link">
         <i class="nav-icon fas fa-plane"></i>
         <p>Travel <i class="right fas fa-angle-left"></i></p>
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="places.html" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Trip</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="places-single.html" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Itinerary</p>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+
+    <!-- Accomodations -->
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-hotel"></i>
+        <p>Accomodation <i class="right fas fa-angle-left"></i></p>
+      </a>
+       <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Hotels</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Bookings</p>
           </a>
         </li>
       </ul>
@@ -196,8 +224,22 @@
     <li class="nav-item">
       <a href="#" class="nav-link">
         <i class="nav-icon fas fa-book"></i>
-        <p>Reservations</p>
+        <p>Transportation  <i class="right fas fa-angle-left"></i></p>
       </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="{{ path('app_reservation_admin_index') }}" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Reservations</p>
+          </a>
+        </li>
+      <li class="nav-item">
+          <a href="{{ path('app_transport_admin_index') }}" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Transports</p>
+          </a>
+        </li>
+      </ul>
     </li>
 
     <!-- Events -->
@@ -208,27 +250,6 @@
       </a>
     </li>
 
-    <!-- Accomodations -->
-    <li class="nav-item">
-      <a href="#" class="nav-link">
-        <i class="nav-icon fas fa-hotel"></i>
-        <p>Accomodation <i class="right fas fa-angle-left"></i></p>
-      </a>
-       <ul class="nav nav-treeview">
-        <li class="nav-item">
-          <a href="places.html" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Hotels</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="places-single.html" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Bookings</p>
-          </a>
-        </li>
-      </ul>
-    </li>
 
     <!-- Social Media -->
     <li class="nav-item">
@@ -238,18 +259,25 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item">
-          <a href="places.html" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Posts</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="places-single.html" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Comments</p>
           </a>
         </li>
       </ul>
+    </li>
+
+     <li class="nav-item">
+      <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-comment"></i>
+        <p>Feedbacks </p>
+      </a>
     </li>
 
   </ul>
@@ -541,7 +569,7 @@
   <!-- Main Footer -->
   <footer class="main-footer">
   {% block footer %}
-    <strong>Copyright &copy; 2025 <a href="#">Your Company</a>.</strong>
+    <strong>Copyright &copy; 2025 <a href="#">Innotravel</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0.0
@@ -583,6 +611,7 @@
 <script src="{{ asset('backoffice/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('backoffice/dist/js/adminlte.js')}}"></script>
+<script src="{{ asset('backoffice/dist/js/pages/dashboard.js')}}"></script>
 {% endblock %}
 </body>
 </html>

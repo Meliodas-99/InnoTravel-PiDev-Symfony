@@ -2,21 +2,29 @@
 
 namespace App\Entity;
 
-use App\Repository\DriverRepository;
+use App\Repository\transportRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-#[ORM\Entity(repositoryClass: DriverRepository::class)]
+#[ORM\Entity(repositoryClass: transportRepository::class)]
 #[Assert\Callback(callback: [self::class, 'validateLicensePlate'])]
-class Driver
+class transport
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[ORM\Column(length: 20)]
+#[Assert\Choice(
+    choices: ['car', 'taxi', 'minibus', 'truck'],
+    message: 'Choose a valid vehicle type: car, taxi, minibus, or truck.'
+)]
+private ?string $vehicleType = null;
+
 
 
     #[ORM\Column(length: 100)]
@@ -32,6 +40,8 @@ class Driver
     )]
     private ?string $licensePlate = null;
 
+    
+
     #[ORM\Column(nullable: true)]
     #[Assert\Choice(
         choices: [0, 1, 2, 3, 4, 5],
@@ -42,7 +52,7 @@ class Driver
     /**
      * @var Collection<int, Reservation>
      */
-    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'driver')]
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'transport')]
     private Collection $reservations;
 
     public function __construct()
@@ -107,6 +117,21 @@ class Driver
     /**
      * @return Collection<int, Reservation>
      */
+
+
+     public function getVehicleType(): ?string
+{
+    return $this->vehicleType;
+}
+
+public function setVehicleType(string $vehicleType): static
+{
+    $this->vehicleType = $vehicleType;
+
+    return $this;
+}
+
+
     public function getReservations(): Collection
     {
         return $this->reservations;
@@ -116,7 +141,7 @@ class Driver
     {
         if (!$this->reservations->contains($reservation)) {
             $this->reservations->add($reservation);
-            $reservation->setDriver($this);
+            $reservation->settransport($this);
         }
 
         return $this;
@@ -125,8 +150,8 @@ class Driver
     public function removeReservation(Reservation $reservation): static
     {
         if ($this->reservations->removeElement($reservation)) {
-            if ($reservation->getDriver() === $this) {
-                $reservation->setDriver(null);
+            if ($reservation->gettransport() === $this) {
+                $reservation->settransport(null);
             }
         }
 
@@ -134,9 +159,9 @@ class Driver
     }
 
     // ✅ Custom license plate validation logic
-    public static function validateLicensePlate(self $driver, ExecutionContextInterface $context): void
+    public static function validateLicensePlate(self $transport, ExecutionContextInterface $context): void
     {
-        $license = $driver->getLicensePlate();
+        $license = $transport->getLicensePlate();
 
         if ($license && preg_match('/^(\d{1,3})tunis(\d{1,4})$/', $license, $matches)) {
             $first = (int) $matches[1];
